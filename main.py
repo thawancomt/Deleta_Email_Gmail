@@ -1,7 +1,6 @@
-import time
 from google_apis import create_service
 
-# Definindo var para conexão na api
+# Definindo var para conexão na api, em cliente_file coloque o caminho para suas credencias do google.
 client_file = 'token files/credentials.json'
 api_name = 'gmail'
 api_version = 'v1'
@@ -10,7 +9,7 @@ scopes = ['https://mail.google.com/']
 # Inicializando contador
 emails_excluidos = 0
 
-# Lista de remetentes cujos e-mails serão excluídos
+# Lista de remetentes cujos e-mails vão ser excluídos
 remetentes_para_excluir = [
     "cursos@escoladanuvem.org",
     "uber@uber.com",
@@ -34,13 +33,19 @@ remetentes_para_excluir = [
     "cartoes.ofertas@itau.com.br",
     "no-reply@twitch.tv",
     "no-reply@canva.com",
-    "noreply@uber.com"
+    "noreply@uber.com",
+    "McDonalds@news.mcdonalds.com.br",
+    "marketing@emails.catho.com.br",
+    "news@updates.ubisoft.com",
+    "mensageiro@e.kabum.com.br",
+    "customer-reviews-messages@amazon.com.br",
+    "recommendations@discover.pinterest.com"
 ]
 
 
 # Pesquisa os email cadastrados na caixa de entrada.
-# Com um filtro de data anterior a um mês.
-def procura_exclui_emails(remetentes, data):
+# Com um filtro de data anterior a.
+def procura_emails(remetentes, data):
     for remetente in remetentes:
         lista_emails = gmail_service.users().messages().list(
             userId='me',
@@ -53,6 +58,7 @@ def procura_exclui_emails(remetentes, data):
         excluir(emails)
 
 
+# responsavel pela exclusao dos emails
 def excluir(emails_excluir):
     global emails_excluidos
     for email in emails_excluir:
@@ -68,8 +74,9 @@ def excluir(emails_excluir):
 if __name__ == "__main__":
     print("Iniciando exclusão de e-mails no Gmail...")
 
-    # Conetando na api google
+# Conetando na api google
     gmail_service = create_service(client_file, api_name, api_version, scopes)
-
-    procura_exclui_emails(remetentes_para_excluir, '1m')
+# Como data passe algum valor inteiro concatenado com "m" que vale como mês, se nao houver probema em apagar emails
+# recentes pode mandar "0m".
+    procura_emails(remetentes_para_excluir, '1m')
     print(f'No total foram excluidos {emails_excluidos}.')

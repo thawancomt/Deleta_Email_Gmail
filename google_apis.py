@@ -1,6 +1,5 @@
 import os
 import datetime
-from collections import namedtuple
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from google.oauth2.credentials import Credentials
@@ -18,14 +17,12 @@ def create_service(client_secret_file, api_name, api_version, *scopes, prefix=''
     token_dir = 'token files'
     token_file = f'token_{API_SERVICE_NAME}_{API_VERSION}{prefix}.json'
 
-    ### Check if token dir exists first, if not, create the folder
+    # Confere se o dir do token existe, caso nao, cria o folder
     if not os.path.exists(os.path.join(working_dir, token_dir)):
         os.mkdir(os.path.join(working_dir, token_dir))
 
     if os.path.exists(os.path.join(working_dir, token_dir, token_file)):
         creds = Credentials.from_authorized_user_file(os.path.join(working_dir, token_dir, token_file), SCOPES)
-        # with open(os.path.join(working_dir, token_dir, token_file), 'rb') as token:
-        #   cred = pickle.load(token)
 
     if not creds or not creds.valid:
         if creds and creds.expired and creds.refresh_token:
@@ -39,15 +36,15 @@ def create_service(client_secret_file, api_name, api_version, *scopes, prefix=''
 
     try:
         service = build(API_SERVICE_NAME, API_VERSION, credentials=creds, static_discovery=False)
-        print(API_SERVICE_NAME, API_VERSION, 'service created successfully')
+        print(API_SERVICE_NAME, API_VERSION, 'serviço criado com sucesso')
         return service
     except Exception as e:
         print(e)
-        print(f'Failed to create service instance for {API_SERVICE_NAME}')
+        print(f'Falha na criacao do servico de instancia pelo {API_SERVICE_NAME}')
         os.remove(os.path.join(working_dir, token_dir, token_file))
         return None
 
 
-def convert_to_RFC_datetime(year=1900, month=1, day=1, hour=0, minute=0):
+def convert_to_rfc_datetime(year=1900, month=1, day=1, hour=0, minute=0):
     dt = datetime.datetime(year, month, day, hour, minute, 0).isoformat() + 'Z'
     return dt
