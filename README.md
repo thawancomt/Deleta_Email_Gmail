@@ -16,7 +16,7 @@ Mas pretendo construir a de recuperação também
  <li><code>Pergunte ao gpt: "como configurar um projeto no google cloud para utilizar a api do gmail".</code></li>
  <li><code>Com json da sua credencial em mãos renomei ele para "credentials.json" e coloque dentro da pasta criada.</code></li>
  <li><code>Execute o script em Python para iniciar a exclusão: python main.py.</code></li>
- <li><code>Na primeira execução você vai ser reedirecionado para uma tela de autorização do google, depois que aceitar tudo vai criar um json chamado "token_gmail_v1.json".</code></li>
+ <li><code>Na primeira execução você vai ser reedirecionado para uma tela de autorização do google, depois que aceitar tudo vai criar um json chamado "token_gmail_v1.json" (dentro desse json, tem um campo chamado "expiry" após essa data o script não funciona, para resolver só deletar esse json e rodar de novo).</code></li>
 </ul>
 
 
