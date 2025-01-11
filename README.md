@@ -8,7 +8,17 @@
 </p>
 
 # Como usar
-<p><h4>1. Baixe o repositório ou clone-o localmente usando: git clone https://github.com/niwanbernardo/excluir-email-outlook.git.
+<ul>
+ <li><code>1. Baixe o repositório ou clone-o localmente usando: git clone https://github.com/GabrielRomao-git/Deleta_Email_Gmail.git</code></li>
+ <li><code>Instale as biblioteca necessárias executando: pip install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib</code></li>
+ <li><code>Crie uma pasta dentro do projeto com o nome "token files".</code></li>
+ <li><code>Pergunte ao gpt: "como configurar um projeto no google cloud para utilizar a api do gmail".</code></li>
+ <li><code>Com json da sua credencial em mãos renomei ele para "credentials.json" e coloque dentro da pasta criada no passo 3.</code></li>
+ <li><code>Execute o script em Python para iniciar a exclusão: python main.py.</code></li>
+ <li><code>Na primeira execução você vai ser reedirecionado para uma tela de autorização do google, depois que aceitar tudo vai criar um json chamado "token_gmail_v1.json".</code></li>
+</ul>
+
+<p><h4>1. Baixe o repositório ou clone-o localmente usando: git clone https://github.com/GabrielRomao-git/Deleta_Email_Gmail.git
 2. Instale as biblioteca necessárias executando: pip install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib
 3. Crie uma pasta dentro do projeto com o nome "token files".
 4. Pergunte ao gpt: "como configurar um projeto no google cloud para utilizar a api do gmail".
@@ -18,7 +28,7 @@
 
 
 # :hammer: Funcionamento
-<video src="![image](https://github.com/user-attachments/assets/22d8790c-b24c-4767-93c6-bd594dcc3ae5)"/>
+<img src="![image](https://github.com/user-attachments/assets/22d8790c-b24c-4767-93c6-bd594dcc3ae5)"/>
 
 # :heavy_check_mark: Tecnologias Usadas
 <ul>
