@@ -5,7 +5,7 @@ Mas pretendo construir a de recuperação também
 </h2>
 
 <p align="center">
-<img src="http://img.shields.io/static/v1?label=STATUS&message=EM-CONSTRUCAO&color=YELLOW&style=for-the-badge"/>
+<img src="http://img.shields.io/static/v1?label=STATUS&message=EM-CONSTRUCAO&color=yellow&style=for-the-badge"/>
 <img src="https://img.shields.io/github/stars/GabrielRomao-git/Deleta_Email_Gmail?style=social" heigth="100%"/>
 </p>
 
