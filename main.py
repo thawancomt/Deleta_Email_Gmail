@@ -76,7 +76,6 @@ if __name__ == "__main__":
 
 # Conetando na api google
     gmail_service = create_service(client_file, api_name, api_version, scopes)
-# Como data passe algum valor inteiro concatenado com "m" que vale como mês, se nao houver probema em apagar emails
-# recentes pode mandar "0m".
+# Como data passe algum valor inteiro concatenado com "m" que vale como mês
     procura_emails(remetentes_para_excluir, '1m')
     print(f'No total foram excluidos {emails_excluidos}.')
