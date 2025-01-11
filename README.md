@@ -1,10 +1,12 @@
 <h1 alingn="center">Deleta emails do gmail</h1>
  
-<h2>Este repositório contém um script em Python para automatizar a exclusão de e-mails específicos na caixa de entrada do gmail.</h2>
+<h2>Este repositório contém um script em Python para automatizar a exclusão de e-mails específicos na caixa de entrada do gmail.
+Mas pretendo construir a de recuperação também
+</h2>
 
 <p align="center">
-<img src="http://img.shields.io/static/v1?label=STATUS&message=EM CONSTRUÇAO&color=YELLOW&style=for-the-badge"/>
-<img src="https://img.shields.io/github/stars/GabrielRomao-git/Projeto_Hotel?style=social" heigth="100%"/>
+<img src="http://img.shields.io/static/v1?label=STATUS&message=EMCONSTRUÇAO&color=YELLOW&style=for-the-badge"/>
+<img src="https://img.shields.io/github/stars/GabrielRomao-git/Deleta_Email_Gmail?style=social" heigth="100%"/>
 </p>
 
 # Como usar
@@ -20,7 +22,7 @@
 
 
 # :hammer: Funcionamento
-<img src="![image](https://github.com/user-attachments/assets/22d8790c-b24c-4767-93c6-bd594dcc3ae5)"/>
+<img src="https://github.com/user-attachments/assets/22d8790c-b24c-4767-93c6-bd594dcc3ae5">
 ![image](https://github.com/user-attachments/assets/22d8790c-b24c-4767-93c6-bd594dcc3ae5)
 
 # :heavy_check_mark: Tecnologias Usadas
@@ -41,5 +43,5 @@
 
  # Créditos e Referêcias
  
- <a><h4>Linkedin https://www.linkedin.com/in/niwanbatista/</h4></a>  
+<a><h4>Linkedin https://www.linkedin.com/in/niwanbatista/</h4></a>  
 <a><h4>GitHub https://github.com/niwanbernardo/excluir-email-outlook</h4></a>
