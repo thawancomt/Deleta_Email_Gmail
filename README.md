@@ -18,12 +18,12 @@
 
 
 # :hammer: Funcionamento
-<video src="![image](https://github.com/user-attachments/assets/22d8790c-b24c-4767-93c6-bd594dcc3ae5)"/></video>
+<video src="![image](https://github.com/user-attachments/assets/22d8790c-b24c-4767-93c6-bd594dcc3ae5)"/>
 
 # :heavy_check_mark: Tecnologias Usadas
 <ul>
 <li><code>PYTHON</code></li>
-  <li><code>API GMAIL</code></li>
+ <li><code>API GMAIL</code></li>
 </ul>
 
 
@@ -37,6 +37,6 @@
  <a><h4>GitHub https://github.com/GabrielRomao-git</h4></a>
 
  # Créditos e Referêcias
+ 
  <a><h4>Linkedin https://www.linkedin.com/in/niwanbatista/</h4></a>  
 <a><h4>GitHub https://github.com/niwanbernardo/excluir-email-outlook</h4></a>
-<a><h4><h4><a>
