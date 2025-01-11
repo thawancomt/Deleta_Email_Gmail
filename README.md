@@ -3,7 +3,7 @@
 <h2>Este repositório contém um script em Python para automatizar a exclusão de e-mails específicos na caixa de entrada do gmail.</h2>
 
 <p align="center">
-<img src="http://img.shields.io/static/v1?label=STATUS&message=FINALIZADO&color=GREEN&style=for-the-badge"/>
+<img src="http://img.shields.io/static/v1?label=STATUS&message=EM CONSTRUÇAO&color=YELLOW&style=for-the-badge"/>
 <img src="https://img.shields.io/github/stars/GabrielRomao-git/Projeto_Hotel?style=social" heigth="100%"/>
 </p>
 
@@ -18,17 +18,10 @@
  <li><code>Na primeira execução você vai ser reedirecionado para uma tela de autorização do google, depois que aceitar tudo vai criar um json chamado "token_gmail_v1.json".</code></li>
 </ul>
 
-<p><h4>1. Baixe o repositório ou clone-o localmente usando: git clone https://github.com/GabrielRomao-git/Deleta_Email_Gmail.git
-2. Instale as biblioteca necessárias executando: pip install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib
-3. Crie uma pasta dentro do projeto com o nome "token files".
-4. Pergunte ao gpt: "como configurar um projeto no google cloud para utilizar a api do gmail".
-5. Com json da sua credencial em mãos renomei ele para "credentials.json" e coloque dentro da pasta criada no passo 3.
-6. Execute o script em Python para iniciar a exclusão: python main.py.
-7. Na primeira execução você vai ser reedirecionado para uma tela de autorização do google, depois que aceitar tudo vai criar um json chamado "token_gmail_v1.json".
-
 
 # :hammer: Funcionamento
 <img src="![image](https://github.com/user-attachments/assets/22d8790c-b24c-4767-93c6-bd594dcc3ae5)"/>
+![image](https://github.com/user-attachments/assets/22d8790c-b24c-4767-93c6-bd594dcc3ae5)
 
 # :heavy_check_mark: Tecnologias Usadas
 <ul>
