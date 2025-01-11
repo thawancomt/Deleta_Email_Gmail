@@ -5,7 +5,7 @@ Mas pretendo construir a de recuperação também
 </h2>
 
 <p align="center">
-<img src="http://img.shields.io/static/v1?label=STATUS&message=EMCONSTRUÇAO&color=YELLOW&style=for-the-badge"/>
+<img src="http://img.shields.io/static/v1?label=STATUS&message=EM_CONSTRUÇAO&color=YELLOW&style=for-the-badge"/>
 <img src="https://img.shields.io/github/stars/GabrielRomao-git/Deleta_Email_Gmail?style=social" heigth="100%"/>
 </p>
 
@@ -23,7 +23,7 @@ Mas pretendo construir a de recuperação também
 
 # :hammer: Funcionamento
 <img src="https://github.com/user-attachments/assets/22d8790c-b24c-4767-93c6-bd594dcc3ae5">
-![image](https://github.com/user-attachments/assets/22d8790c-b24c-4767-93c6-bd594dcc3ae5)
+
 
 # :heavy_check_mark: Tecnologias Usadas
 <ul>
@@ -43,5 +43,5 @@ Mas pretendo construir a de recuperação também
 
  # Créditos e Referêcias
  
-<a><h4>Linkedin https://www.linkedin.com/in/niwanbatista/</h4></a>  
-<a><h4>GitHub https://github.com/niwanbernardo/excluir-email-outlook</h4></a>
+ <a><h4>Linkedin https://www.linkedin.com/in/niwanbatista/</h4></a>  
+ <a><h4>GitHub https://github.com/niwanbernardo/excluir-email-outlook</h4></a>
