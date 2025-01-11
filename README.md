@@ -5,7 +5,7 @@ Mas pretendo construir a de recuperação também
 </h2>
 
 <p align="center">
-<img src="http://img.shields.io/static/v1?label=STATUS&message=EM_CONSTRUÇAO&color=YELLOW&style=for-the-badge"/>
+<img src="http://img.shields.io/static/v1?label=STATUS&message=EM-CONSTRUCAO&color=YELLOW&style=for-the-badge"/>
 <img src="https://img.shields.io/github/stars/GabrielRomao-git/Deleta_Email_Gmail?style=social" heigth="100%"/>
 </p>
 
@@ -15,7 +15,7 @@ Mas pretendo construir a de recuperação também
  <li><code>Instale as biblioteca necessárias executando: pip install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib</code></li>
  <li><code>Crie uma pasta dentro do projeto com o nome "token files".</code></li>
  <li><code>Pergunte ao gpt: "como configurar um projeto no google cloud para utilizar a api do gmail".</code></li>
- <li><code>Com json da sua credencial em mãos renomei ele para "credentials.json" e coloque dentro da pasta criada no passo 3.</code></li>
+ <li><code>Com json da sua credencial em mãos renomei ele para "credentials.json" e coloque dentro da pasta criada.</code></li>
  <li><code>Execute o script em Python para iniciar a exclusão: python main.py.</code></li>
  <li><code>Na primeira execução você vai ser reedirecionado para uma tela de autorização do google, depois que aceitar tudo vai criar um json chamado "token_gmail_v1.json".</code></li>
 </ul>
