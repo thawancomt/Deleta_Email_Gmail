@@ -31,10 +31,10 @@ class Serviço():
             self.service.users().messages().untrash(userId=self.user_id, id=id).execute()
             self.emails_recuperados += 1
         except HttpError as e:
-            print("Email não encontrado ou ja foi recuperado : {}".format(e))
+            print("[SERVIÇO]: Email não encontrado ou ja foi recuperado : {}".format(e))
 
         except Exception as e:
-            print("Erro ao recuperar email: {}".format(e))
+            print("[SERVIÇO]: Erro ao recuperar email: {}".format(e))
         
 
     def pesquisar_emails(self, page_token : str = None, spam : bool = True):
@@ -58,7 +58,7 @@ class Serviço():
 
         emails = resultado.get('messages', [])
 
-        print("Encontrado {} emails".format(len(emails)))
+        print("[SERVIÇO]: Encontrado {} emails".format(len(emails)))
 
         if emails:
             self.atualizar_emails_encontrados(emails)
@@ -121,24 +121,25 @@ class Serviço():
         
     def mover_para_lixeira(self):
         for email in self.emails_ids:
-            print("Movendo email para lixeira: " + email)
+            print("[SERVIÇO]: Movendo email para lixeira: " + email)
             self.service.users().messages().trash(userId=self.user_id, id=email).execute()
             self.emails_movidos_para_lixeira += 1
 
     def deletar(self, lixeira : bool = False):
         self.emails_encontrados = []
         if not self.emails_para_exclusao:
-            print("Nenhum email para excluir")
+            print("[SERVIÇO]: Nenhum email para excluir")
             return
         
         self.definir_filtro(self.emails_para_exclusao)
+        print("[SERVIÇO]: Pesquisando emails... usando filtro: {}".format(self.filtro))
         self.pesquisar_emails()
         self.extrair_id_dos_emails()
 
         if lixeira:
-            print("Movendo emails para lixeira...")
+            print("[SERVIÇO]: Movendo emails para lixeira...")
             self.mover_para_lixeira()
-            print("Emails movidos para lixeira")
+            print("[SERVIÇO]: Emails movidos para lixeira")
             return
         
         self.excluir_emails()
@@ -146,9 +147,10 @@ class Serviço():
     def recuperar(self):
         self.emails_encontrados = []
         if not self.emails_para_recuperar:
-            print("Nenhum email para recuperar")
+            print("[SERVIÇO]: Nenhum email para recuperar")
             return
         self.definir_filtro(self.emails_para_recuperar)
+        print("[SERVIÇO]: Pesquisando emails... usando filtro: {}".format(self.filtro))
         self.pesquisar_emails(spam=False)
         self.extrair_id_dos_emails()
 
@@ -157,7 +159,7 @@ class Serviço():
         print("Recuperando emails...")
         for email in self.emails_ids:
             self.recuperar_emais(email)
-        print("Emails recuperados")
+        print("[SERVIÇO]: Emails recuperados")
 
 
 if __name__ == "__main__":
@@ -166,13 +168,11 @@ if __name__ == "__main__":
     inicio = time.time()
     
     servico = Serviço(gmail_service=gmail) # Injetando a API do Gmail no serviço
-    servico.deletar(lixeira=True) # Deletar os emails que estão na lista de emails para exclusao
-    print(servico.filtro)
+    servico.deletar(lixeira=False) # Deletar os emails que estão na lista de emails para exclusao
     servico.recuperar() # Recuperar os emails que estão na lista de emails para recuperar
-    print(servico.filtro)
 
     fim = time.time()
-    print("Execução finalizada em {:.2f} segundos".format(fim - inicio))
-    print("Emails excluidos: {}".format(servico.emaisl_excluidos))
-    print("Emails movidos para lixeira: {}".format(servico.emails_movidos_para_lixeira))
-    print("Emails recuperados: {}".format(servico.emails_recuperados))
+    print("[SERVIÇO]: Execução finalizada em {:.2f} segundos".format(fim - inicio))
+    print("[SERVIÇO]: Emails excluidos: {}".format(servico.emaisl_excluidos))
+    print("[SERVIÇO]: Emails movidos para lixeira: {}".format(servico.emails_movidos_para_lixeira))
+    print("[SERVIÇO]: Emails recuperados: {}".format(servico.emails_recuperados))

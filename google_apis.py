@@ -53,10 +53,10 @@ class GmailAPI:
         try:
             if os.path.exists(self.token_file):
                 credentials = Credentials.from_authorized_user_file(self.token_file, self.scopes)
-                print(f"Credenciais carregadas...")
+                print(f"[GMAIL API]: Credenciais carregadas...")
 
                 if credentials and credentials.expired and credentials.refresh_token:
-                    print("Token expirado, renovando com refresh_token...")
+                    print("[GMAIL API]: Token expirado, renovando com refresh_token...")
                     credentials.refresh(Request())
                 
                 return credentials
@@ -72,25 +72,25 @@ class GmailAPI:
                 try:
                     with open(self.token_file, 'w', encoding='utf-8') as token:
                         token.write(credentials.to_json())
-                    print("Credenciais salvas com sucesso!")
+                    print("[GMAIL API]: Credenciais salvas com sucesso!")
 
                     return credentials
                 except FileNotFoundError:
-                    print("Adicione seu arquivo de credentials")
+                    print("[GMAIL API]: Adicione seu arquivo de credentials")
         
         except ValueError:
-            print("O token esta incompleto, precisaremos renova-lo")
+            print("[GMAIL API]: O token esta incompleto, precisaremos renova-lo")
             os.remove(self.token_file)
-            print("Removendo o token incorreto...")
-            print("Voce tera que autenticar novamente...")
+            print("[GMAIL API]: Removendo o token incorreto...")
+            print("[GMAIL API]: Voce tera que autenticar novamente...")
 
             if error < 1:
                 self.get_credentials()
                 error += 1
 
         except DefaultCredentialsError:
-            print("Voce tera que gerar suas credenciais novamente")
-            print("Va para https://console.cloud.google.com/apis/credentials e gere suas novas credenticais")
+            print("[GMAIL API]: Voce tera que gerar suas credenciais novamente")
+            print("[GMAIL API]: Va para https://console.cloud.google.com/apis/credentials e gere suas novas credenticais")
             exit()
         
         except Exception as e:
