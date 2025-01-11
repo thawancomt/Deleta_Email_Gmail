@@ -1,50 +1,115 @@
 import os
-import datetime
+from google.auth.transport.requests import Request
+from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
-from google.oauth2.credentials import Credentials
-from google.auth.transport.requests import Request
+from googleapiclient.errors import HttpError
+from google.auth.exceptions import DefaultCredentialsError
+
+class GmailAPI:
+    def __init__(self):
+        """
+        Api do google baseada em classe.
+        é necessario criar suas credenciais em https://console.cloud.google.com/apis/credentials
+        e como escopo defina o escopo personalizado https://mail.google.com/ em https://console.cloud.google.com/apis/credentials/consent/
+
+        Mais informações: https://cloud.google.com/endpoints/docs/openapi/enable-api?hl=pt-br
+        """
+        # a pasta onde serão armazenadas as credenciais
+        self.token_dir = 'token files'
+
+        # Seta o arquivo "credentials.json" que voce adicionou na pasta token files como o arquivo de credencial
+        self.credentials_file = os.path.join(self.token_dir, 'credentials.json')
+        
+        # Defina o caminho para o token gerado pelo Google
+        self.token_file = os.path.join(self.token_dir, 'user_token.json')
+
+        # O escopo a qual o google deve dar acesso ao token gerado
+        self.scopes = ['https://mail.google.com/']
+
+        # As credenticais geradas pelo google, ou carregadas pelo arquivo
+        self.credentials = self.get_credentials()
+
+        # O serviço do Gmail disponivel
+        self.service = self.get_service()
+
+    def get_credentials(self):
+        """
+        meth: Essa funcão trata de obter as credenciais do google.
+        Temos alguns tratamentos de erros para mitigar falhas.
+
+        AttributeError sera levantada se o arquivo gerado pelo Google nao tiver o atributo refresh token (geralmente quando excluimos o arquivo ou depois de 6 meses),
+        voce sera obrigado a gerar outra credencial, o motivo é um erro em cenario testado onde apagar o arquivo token gerado acarretava que o proximo
+        token gerado nao vem com o refresh token leia: https://developers.google.com/identity/protocols/oauth2/web-server#python_8
+
+        FileNotFound sera levantado se voce nao mover o arquivo "credentials.json" na pasta especificada ("token files")
+
+        A variavel error, é uma tentativa de chamar a autenticacao caso o token expire após 6 meses (Não confirmado)
+        O codigo executa 1 vez, caso dê erro pelas credenciais, tentarar solicitar autenticacao novamente. 
+        """
+        credentials = None
+        error = 0
+
+        try:
+            if os.path.exists(self.token_file):
+                credentials = Credentials.from_authorized_user_file(self.token_file, self.scopes)
+                print(f"Credenciais carregadas...")
+
+                if credentials and credentials.expired and credentials.refresh_token:
+                    print("Token expirado, renovando com refresh_token...")
+                    credentials.refresh(Request())
+                
+                return credentials
+
+            
+            if not credentials or not credentials.valid:
+                flow = InstalledAppFlow.from_client_secrets_file(
+                    self.credentials_file, self.scopes
+                    
+                )
+                credentials = flow.run_local_server(port=0)
+
+                try:
+                    with open(self.token_file, 'w', encoding='utf-8') as token:
+                        token.write(credentials.to_json())
+                    print("Credenciais salvas com sucesso!")
+
+                    return credentials
+                except FileNotFoundError:
+                    print("Adicione seu arquivo de credentials")
+        
+        except ValueError:
+            print("O token esta incompleto, precisaremos renova-lo")
+            os.remove(self.token_file)
+            print("Removendo o token incorreto...")
+            print("Voce tera que autenticar novamente...")
+
+            if error < 1:
+                self.get_credentials()
+                error += 1
+
+        except DefaultCredentialsError:
+            print("Voce tera que gerar suas credenciais novamente")
+            print("Va para https://console.cloud.google.com/apis/credentials e gere suas novas credenticais")
+            exit()
+        
+        except Exception as e:
+            with open('LOG.txt', 'w') as log:
+                log.write(str(e.with_traceback(e.__traceback__)))
+            print("Erro no prgrama, veja o arquivo de log para mais informações > 'LOG.txt' ")
+            exit()
 
 
-def create_service(client_secret_file, api_name, api_version, *scopes, prefix=''):
-    CLIENT_SECRET_FILE = client_secret_file
-    API_SERVICE_NAME = api_name
-    API_VERSION = api_version
-    SCOPES = [scope for scope in scopes[0]]
+    def get_service(self):
+        """
+        Aqui tentamos acessar a API do Gmail, caso de erro, levantamos uma exceção.
+        gmail = seria a API que queremos acessar
+        v1 = a versão da API
+        credentials = as credenciais que obtivemos anteriormente
+        """
+        try:
+            service = build("gmail", "v1", credentials=self.credentials)
+        except HttpError as error:
+            print(f"Erro ao acessar a API do Gmail: {error}")
 
-    creds = None
-    working_dir = os.getcwd()
-    token_dir = 'token files'
-    token_file = f'token_{API_SERVICE_NAME}_{API_VERSION}{prefix}.json'
-
-    # Confere se o dir do token existe, caso nao, cria o folder
-    if not os.path.exists(os.path.join(working_dir, token_dir)):
-        os.mkdir(os.path.join(working_dir, token_dir))
-
-    if os.path.exists(os.path.join(working_dir, token_dir, token_file)):
-        creds = Credentials.from_authorized_user_file(os.path.join(working_dir, token_dir, token_file), SCOPES)
-
-    if not creds or not creds.valid:
-        if creds and creds.expired and creds.refresh_token:
-            creds.refresh(Request())
-        else:
-            flow = InstalledAppFlow.from_client_secrets_file(CLIENT_SECRET_FILE, SCOPES)
-            creds = flow.run_local_server(port=0)
-
-        with open(os.path.join(working_dir, token_dir, token_file), 'w') as token:
-            token.write(creds.to_json())
-
-    try:
-        service = build(API_SERVICE_NAME, API_VERSION, credentials=creds, static_discovery=False)
-        print(API_SERVICE_NAME, API_VERSION, 'serviço criado com sucesso')
         return service
-    except Exception as e:
-        print(e)
-        print(f'Falha na criacao do servico de instancia pelo {API_SERVICE_NAME}')
-        os.remove(os.path.join(working_dir, token_dir, token_file))
-        return None
-
-
-def convert_to_rfc_datetime(year=1900, month=1, day=1, hour=0, minute=0):
-    dt = datetime.datetime(year, month, day, hour, minute, 0).isoformat() + 'Z'
-    return dt
