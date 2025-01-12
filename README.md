@@ -1,12 +1,9 @@
-<h1 alingn="center">Deleta emails do gmail</h1>
+
  
-<h2>Este repositório contém um script em Python para automatizar a exclusão de e-mails específicos na caixa de entrada do gmail.
-Mas pretendo construir a de recuperação também
+<h2>Script python para exclusão e recuperação automatica de emails (filtrados) da caixa de entrada e spam do Google Gmail.
 </h2>
 
-<p align="center">
-<img src="http://img.shields.io/static/v1?label=STATUS&message=EM-CONSTRUCAO&color=yellow&style=for-the-badge"/>
-</p>
+
 
 # Como usar
 <ul>
