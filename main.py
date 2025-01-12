@@ -31,10 +31,10 @@ Na pratica o tempo de deletar é instantâneo, mas o tempo de mover para lixeira
 mais tempo por conta da quantidade de emails que temos que mover.
 """
 
+import sys
 
-from google_api import GmailAPI, HttpError
 from EMAILS import emails_para_exclusao, emails_para_recuperar
-import time
+from google_api import GmailAPI, HttpError
 
 
 class Serviço:
@@ -55,26 +55,16 @@ class Serviço:
         self.emails_para_recuperar = emails_para_recuperar
         self.emails_ids = []
 
-        self.emaisl_excluidos = 0
+        self.emails_excluidos = 0
         self.emails_movidos_para_lixeira = 0
         self.emails_recuperados = 0
 
     def atualizar_emails_encontrados(self, novos_emails: list):
         self.emails_encontrados += novos_emails
 
-    def recuperar_emais(self, id: str):
-        try:
-            self.service.users().messages().untrash(
-                userId=self.user_id, id=id
-            ).execute()
-            self.emails_recuperados += 1
-        except HttpError as e:
-            print("[SERVIÇO]: Email não encontrado ou ja foi recuperado : {}".format(e))
+    
 
-        except Exception as e:
-            print("[SERVIÇO]: Erro ao recuperar email: {}".format(e))
-
-    def pesquisar_emails(self, page_token: str = None, spam: bool = True):
+    def pesquisar_emails(self, page_token: str = None, spam: bool = True, exibit_mensagem: bool = True):
         """
         meth: pesquisar_emails
 
@@ -100,11 +90,19 @@ class Serviço:
         )
 
         # Executando a requisição e armazenando o resultado
-        resultado: dict = requisição.execute()
-
+        try:
+            resultado: dict = requisição.execute()
+        except HttpError as e:
+            print("[SERVIÇO] - Erro ao buscar emails: {}".format(e))
+            return
+        
         emails = resultado.get("messages", [])
 
-        print("[SERVIÇO]: Encontrado {} emails".format(len(emails)))
+        if page_token is None and exibit_mensagem:
+            print("[SERVIÇO] - Encontrado {} emails".format(len(emails)))
+        else :
+            if exibit_mensagem:
+                print("[SERVIÇO] - Encontrado mais {} emails".format(len(emails)))
 
         if emails:
             self.atualizar_emails_encontrados(emails)
@@ -165,17 +163,20 @@ class Serviço:
             # Definindo um chunck para apagar os emails caso seja maior que 300
             inicio = 0
             for index in range(inicio, len(self.emails_ids), 300):
-                self.service.users().messages().batchDelete(
+                self.service \
+                .users() \
+                .messages() \
+                .batchDelete(
                     userId=self.user_id, body=body
                 ).execute()  # Apagando os emails
                 inicio = index
 
-        self.emaisl_excluidos += len(self.emails_ids)
+        self.emails_excluidos += len(self.emails_ids)
 
     def mover_para_lixeira(self):
         numero_de_emails = len(self.emails_ids)
 
-        for index, email in enumerate(self.emails_ids):
+        for index, email in enumerate(self.emails_ids, start=1):
             print(
                 f"\r[SERVIÇO]: [{round((index / numero_de_emails) * 100)}%] Movendo email para lixeira: "
                 + email,
@@ -188,60 +189,136 @@ class Serviço:
 
         print("\n")
 
+    def recuperar_email(self, id: str):
+        try:
+            self.service.users().messages().untrash(
+                userId=self.user_id, id=id
+            ).execute()
+            self.emails_recuperados += 1
+        except HttpError as e:
+            print("[SERVIÇO]: Email não encontrado ou ja foi recuperado : {}".format(e))
+ 
+        except Exception as e:
+            print("[SERVIÇO]: Erro ao recuperar email: {}".format(e))
+
     def deletar(self, lixeira: bool = False):
         self.emails_encontrados = []
+
         if not self.emails_para_exclusao:
-            print("[SERVIÇO]: Nenhum email para excluir")
+            print("[ALERTA] - [DELETAR] - Voce não definiu nenhum email para exclusão")
             return
 
         self.definir_filtro(self.emails_para_exclusao)
-        print("[SERVIÇO]: Pesquisando emails... usando filtro: {}".format(self.filtro))
-        self.pesquisar_emails()
+        print("[SERVIÇO] - [DELETAR] - Pesquisando emails...")
+        
+        if lixeira:
+            # se for para mover para lixeira, pesquisar apenas emails que não estão na lixeira
+            self.pesquisar_emails(spam=False)
+        else:
+            self.pesquisar_emails()
+
+        if not self.emails_encontrados:
+            print(
+                "[ALERTA] - [DELETAR/LIXEIRA] - Nenhum email encontrado ou ja foram excluidos, verifique sua lista de emails para exclusão"
+            )
+            return
+
         self.extrair_id_dos_emails()
 
         if lixeira:
-            print("[SERVIÇO]: Movendo emails para lixeira...")
+            print("[SERVIÇO] - [LIXEIRA] - Movendo emails para lixeira...")
             self.mover_para_lixeira()
-            print("[SERVIÇO]: Emails movidos para lixeira")
+            print("[SERVIÇO] - [LIXEIRA] - Emails movidos para lixeira")
             return
 
         self.excluir_emails()
 
     def recuperar(self):
         self.emails_encontrados = []
+
         if not self.emails_para_recuperar:
-            print("[SERVIÇO]: Nenhum email para recuperar")
+            print(
+                "[ALERTA] [RECUPERAR] - Voce não definiu nenhum email para recuperação"
+            )
             return
+
         self.definir_filtro(self.emails_para_recuperar)
-        print("[SERVIÇO]: Pesquisando emails... usando filtro: {}".format(self.filtro))
-        self.pesquisar_emails(spam=False)
+        print("[SERVIÇO] - [RECUPERAR] - Pesquisando emails...")
+
+        self.pesquisar_emails(spam=False, exibit_mensagem=False)
         self.extrair_id_dos_emails()
 
-        # temos que usar um for por que diferente do endpoint de excluir,
-        # o de recuperar so aceita um email por vez
-        print("Recuperando emails...")
-        for email in self.emails_ids:
-            self.recuperar_emais(email)
-        print("[SERVIÇO]: Emails recuperados")
+        caixa_de_entrada = set(self.emails_ids)
+
+        self.pesquisar_emails(spam=True, exibit_mensagem=False)
+        self.extrair_id_dos_emails()
+
+        caixa_de_entrada_com_lixeira = set(self.emails_ids)
+
+        emails_lixeira = caixa_de_entrada_com_lixeira - caixa_de_entrada
+
+        self.emails_ids = list(emails_lixeira)
+
+        # Não conseguimos filtrar apenas os emails que estão na lixeira
+        # Entao primeiro, pesquisamos na caixa de entrada, e depois na lixeira
+        # caso a pesquisa da caixa de entrada entregue resultados diferente da pesquisa da lixeira
+        # podemos concluir que temos emails para recuperar na lixeira
+        # mas antes devemos extrair somente os emails que estao na lixeira
+        # porque senao o script tentara 
+        if self.emails_ids:
+            if not self.emails_encontrados:
+                print(
+                    "[ALERTA] - [RECUPERAR] - Nenhum email para recuperar, verifique os emails que voce quer recuperar"
+                )
+                return
+            
+            # temos que usar um for por que diferente do endpoint de excluir,
+            # o de recuperar so aceita um email por vez
+            print("Recuperando emails...")
+            numero_de_emails = len(self.emails_ids)
+
+            for index, email in enumerate(self.emails_ids, start=1):
+                print(
+                    f"\r[SERVIÇO]: [{round((index / numero_de_emails) * 100)}%] Recuperando emails: "
+                    + email,
+                    end="",
+                )
+                self.recuperar_email(email)
+        else:
+            print("[ALERTA] - [RECUPERAR] - Nenhum email encontrado para recuperar ou ja foram recuperados, verifique sua lista de emails para recuperar")
 
 
 if __name__ == "__main__":
     gmail = GmailAPI()
+    servico = Serviço(gmail)
 
-    inicio = time.time()
+    if "-excluir" in sys.argv:
+        servico.deletar(lixeira=False)
 
-    servico = Serviço(gmail_service=gmail)  # Injetando a API do Gmail no serviço
-    servico.deletar(
-        lixeira=True
-    )  # Deletar os emails que estão na lista de emails para exclusao
-    servico.recuperar()  # Recuperar os emails que estão na lista de emails para recuperar
+    if "-lixeira" in sys.argv:
+        servico.deletar(lixeira=True)
 
-    fim = time.time()
-    print("[SERVIÇO]: Execução finalizada em {:.2f} segundos".format(fim - inicio))
-    print("[SERVIÇO]: Emails excluidos: {}".format(servico.emaisl_excluidos))
-    print(
-        "[SERVIÇO]: Emails movidos para lixeira: {}".format(
-            servico.emails_movidos_para_lixeira
+    if "-recuperar" in sys.argv:
+        servico.recuperar()
+
+    if servico.emails_excluidos:
+        print("[SERVIÇO]: Emails excluidos: {}".format(servico.emails_excluidos))
+    if servico.emails_movidos_para_lixeira:
+        print(
+            "[SERVIÇO]: Emails movidos para lixeira: {}".format(
+                servico.emails_movidos_para_lixeira
+            )
         )
-    )
-    print("[SERVIÇO]: Emails recuperados: {}".format(servico.emails_recuperados))
+    if servico.emails_recuperados:
+        print("[SERVIÇO]: Emails recuperados: {}".format(servico.emails_recuperados))
+
+    if len(sys.argv) == 1:
+        print(
+            "[ALERTA]: Nenhum argumento passado, por favor passe um argumento para o script"
+        )
+        print(
+            "[ALERTA]: Argumentos disponiveis: -excluir, -lixeira, -recuperar"
+        )
+        print(
+            "[ALERTA]: Exemplo: python main.py -excluir "
+        )
