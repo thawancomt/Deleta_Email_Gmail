@@ -10,13 +10,13 @@ Mas pretendo construir a de recuperação também
 
 # Como usar
 <ul>
- <li><code>1. Baixe o repositório ou clone-o localmente usando: git clone https://github.com/GabrielRomao-git/Deleta_Email_Gmail.git</code></li>
- <li><code>Instale as biblioteca necessárias executando: pip install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib</code></li>
- <li><code>Crie uma pasta dentro do projeto com o nome "token files".</code></li>
- <li><code>Pergunte ao gpt: "como configurar um projeto no google cloud para utilizar a api do gmail".</code></li>
- <li><code>Com json da sua credencial em mãos renomei ele para "credentials.json" e coloque dentro da pasta criada.</code></li>
- <li><code>Execute o script em Python para iniciar a exclusão: python main.py.</code></li>
- <li><code>Na primeira execução você vai ser reedirecionado para uma tela de autorização do google, depois que aceitar tudo vai criar um json chamado "token_gmail_v1.json" (dentro desse json, tem um campo chamado "expiry" após essa data o script não funciona, para resolver só deletar esse json e rodar de novo).</code></li>
+ <li><code>Clone o repositorio localmente usando: git clone https://github.com/thawancomt/Deleta_Email_Gmail.git</code></li>
+ <li><code>Crie seu ambiente virtual, e instale as dependendcias `requirements.txt`</code></li>
+ <li><code>Crie sua credencial no Google Cloud Plataform</code></li>
+ <li><code>Execute o scritpt `python -m main` ou `python3 -m main`</code></li>
+ <li><code>Na primeira execução do script ele te redicionara para a pagina de autenticacao do google, isso é necessario para que o google gere seu token
+ de autenticação, se autentique e ja esta tudo feito.</code></li>
+ <li>Agora adicione sua lista de emaisl indesejados no Arquivo `EMAILS.py` e rode o script</li>
 </ul>
 
 
