@@ -32,7 +32,7 @@ mais tempo por conta da quantidade de emails que temos que mover.
 """
 
 
-from google_apis import GmailAPI, HttpError
+from google_api import GmailAPI, HttpError
 from EMAILS import emails_para_exclusao, emails_para_recuperar
 import time
 
