@@ -30,17 +30,3 @@ Mas pretendo construir a de recuperação também
  <li><code>API GMAIL</code></li>
 </ul>
 
-
-# Autor
-
- [<img src="https://avatars.githubusercontent.com/u/110436354?v=4" width=115><br><sub>Gabriel Romão Ribeiro</sub>](https://github.com/GabrielRomao-git)
- 
- # :star: Contato
- 
- <a><h4>Linkedin https://www.linkedin.com/in/gabriel-romao/</h4></a>
- <a><h4>GitHub https://github.com/GabrielRomao-git</h4></a>
-
- # Créditos e Referêcias
- 
- <a><h4>Linkedin https://www.linkedin.com/in/niwanbatista/</h4></a>  
- <a><h4>GitHub https://github.com/niwanbernardo/excluir-email-outlook</h4></a>
