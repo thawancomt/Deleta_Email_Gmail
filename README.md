@@ -1,43 +1,33 @@
+# Script Python para Exclusão e Recuperação Automática de Emails no Gmail
 
- 
-<h2>Script python para exclusão e recuperação automatica de emails (filtrados) da caixa de entrada e spam do Google Gmail.
-</h2>
+Este script permite a exclusão e recuperação automática de emails filtrados da caixa de entrada e spam do Google Gmail.
 
-<h2>Como usar: </h2>
+## Como Usar
 
-<span> 1 - Clone o repositorio </span>
-<p>
-    ```bash
-    git clone https://github.com/thawancomt/Deleta_Email_Gmail.git```
-</p>
+### 1. Clone o Repositório
+```bash
+git clone https://github.com/thawancomt/Deleta_Email_Gmail.git
+```
 
-<span> 2 - Crie seu ambiente virtual e instale as dependencias </span>
-<p>
-    ```bash
-    python -m venv venv
-    source venv/bin/activate
-    pip install -r requirements.txt
-    ```
-</p>
+### 2. Crie seu Ambiente Virtual e Instale as Dependências
+```bash
+python -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
 
-<span> 3 - Crie suas credencias do Google https://developers.google.com/workspace/guides/auth-overview?hl=pt-br </span>
-<p>
-    Um resumo rapido, voce tem de criar um projeto no Google Cloud Platform, ativar a API do Gmail.
-    Guia passo a passo: https://support.google.com/workspacemigrate/answer/9222992?hl=pt-br
-</p>
+### 3. Crie suas Credenciais do Google
+Siga as instruções em [Google Workspace Guides](https://developers.google.com/workspace/guides/auth-overview?hl=pt-br) para criar um projeto no Google Cloud Platform e ativar a API do Gmail. Para um guia passo a passo, consulte [este link](https://support.google.com/workspacemigrate/answer/9222992?hl=pt-br).
 
-<span> 4 - Baixe o arquivo de credenciais e salve o arquivo como `credentials.json` dentro da pasta `token files` que ja esta no proejto </span>
+### 4. Baixe o Arquivo de Credenciais
+Salve o arquivo de credenciais como `credentials.json` dentro da pasta `token files` que já está no projeto.
 
-<span> 5 - Defina os emails a serem tratados </span>
-<p>
-    No arquivo `EMAILS.py` adicione os emails que deseja tratar, temos duas listas, uma para emails que serao excluidos e outra para emails que serao recuperados.
-    adicione os emails em forma de lista
-</p>
+### 5. Defina os Emails a Serem Tratados
+No arquivo [`EMAILS.py`](EMAILS.py), adicione os emails que deseja tratar. Existem duas listas: uma para emails que serão excluídos e outra para emails que serão recuperados. Adicione os emails em forma de lista.
 
-<span> 6 - Execute o script </span>
-<p>A primeira execução pedira que voce se autentique na pagina do google, faça a autenticação, isso é nessesario para gerar seu token de acesso. https://developers.google.com/gmail/api/auth/web-server?hl=pt-br#exchange_the_authorization_code_for_an_access_token</p>
-<p>
-    ```bash
-    python -m main
-    ```
-</p>
+### 6. Execute o Script
+Na primeira execução, será solicitado que você se autentique na página do Google. Faça a autenticação para gerar seu token de acesso. Para mais informações, consulte [este link](https://developers.google.com/gmail/api/auth/web-server?hl=pt-br#exchange_the_authorization_code_for_an_access_token).
+
+```bash
+python -m main
+```
