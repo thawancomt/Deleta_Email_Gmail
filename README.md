@@ -87,7 +87,9 @@ python -m main
 	 entao foque em manter o codigo legivel e sem muita abstração.
 
 # Menções:
-	- Google 
-	- Autor do repositorio inicial [GabrielRomao-git (Gabriel Romão)](https://github.com/GabrielRomao-git) 
+[Google for API](https://github.com/googleworkspace/python-samples/tree/main/gmail) 
+
+## Créditos
+Este projeto foi originalmente baseado no [Projeto Original](https://github.com/GabrielRomao-git/Deleta_Email_Gmail) de [Gabriel Romao]((https://github.com/GabrielRomao-git) ). A maior parte do código foi reformulada ou recriada, mas os fundamentos foram inspirados no trabalho original.
 
 thawancomt@2025
