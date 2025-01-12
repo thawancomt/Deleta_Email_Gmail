@@ -18,6 +18,9 @@ pip install -r requirements.txt
 
 ### 3. Crie suas Credenciais do Google
 Siga as instruções em [Google Workspace Guides](https://developers.google.com/workspace/guides/auth-overview?hl=pt-br) para criar um projeto no Google Cloud Platform e ativar a API do Gmail. Para um guia passo a passo, consulte [este link](https://support.google.com/workspacemigrate/answer/9222992?hl=pt-br).
+[explicacao alternativa 1](https://www.fabricadecodigo.com/adicionando-autenticacao-do-google-ao-seu-web-app/)
+[explicacao alternativa 2](https://youtu.be/tgO_ADSvY1I?si=q5vKR2Gm-FNfu4Re&t=37)
+### 3.1 Insira https://mail.google.com/ no scope do seu projeto
 
 ### 4. Baixe o Arquivo de Credenciais
 Salve o arquivo de credenciais como `credentials.json` dentro da pasta `token files` que já está no projeto.
