@@ -102,6 +102,7 @@ python -m main -<comando>
 
 # Menções:
 [Google for API](https://github.com/googleworkspace/python-samples/tree/main/gmail) 
+- [Documentação da API](https://developers.google.com/resources/api-libraries/documentation/gmail/v1/python/latest/gmail_v1.users.html)
 
 ## Créditos
 Este projeto foi originalmente baseado no [Projeto Original](https://github.com/GabrielRomao-git/Deleta_Email_Gmail) de [Gabriel Romao]((https://github.com/GabrielRomao-git) ). A maior parte do código foi reformulada ou recriada, mas os fundamentos foram inspirados no trabalho original.
