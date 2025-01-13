@@ -41,11 +41,11 @@ No arquivo [`EMAILS.py`](EMAILS.py), adicione os emails que deseja tratar. Exist
 - ![image](https://github.com/user-attachments/assets/3ad80a01-b6b4-4e49-b554-60efb537508c)
 ### 6. Execute o script
 Na primeira execução, será solicitado que você se autentique na página do Google. Faça a autenticação para gerar seu token de acesso. Para mais informações, consulte [este link](https://developers.google.com/gmail/api/auth/web-server?hl=pt-br#exchange_the_authorization_code_for_an_access_token).
-![ezgif-4-f601170d14](https://github.com/user-attachments/assets/8b879a67-b9cd-4278-a96a-5f5245a60201)
 
 ```bash
 python -m main -<comando>
 ```
+ - ![ezgif-4-f601170d14](https://github.com/user-attachments/assets/8b879a67-b9cd-4278-a96a-5f5245a60201)
 
 # Como configurar a lista dos Emails ✉️
 
