@@ -5,7 +5,7 @@ Este script permite a exclusão e recuperação automática de emails filtrados 
 # Sobre
 Este script te ajuda a manter sua caixa de entrada do Gmail limpa, voce pode definir uma lista de remetentes indesejados e o script tratara de exclui-los ou move-los para a lixeira em alguns segundos!
 Quer recuperar emails de determinados remetentes da lixeira? O script também te ajuda.
-- Busca flexivel, você pode passar tanto o email completo como por exemplo 'no-reply@t.mail.coursera.org' ou uma parte chave do email, como 'coursera'. Atenção que na busca por palavras qualquer remetente que contenha a palavra pesquisada sera retornado.
+- Busca flexivel, você pode passar tanto o email completo como por exemplo `no-reply@t.mail.coursera.org` ou uma parte chave do email, como 'coursera'. Atenção que na busca por palavras qualquer remetente que contenha a palavra pesquisada sera retornado.
 
 ## Como instalar
 
@@ -38,9 +38,10 @@ Salve o arquivo de credenciais como `credentials.json` dentro da pasta `token fi
 
 ### 5. Defina os Emails a serem tratados
 No arquivo [`EMAILS.py`](EMAILS.py), adicione os emails que deseja tratar. Existem duas listas: uma para emails que serão excluídos e outra para emails que serão recuperados. Adicione os emails em forma de lista.
-
+- ![image](https://github.com/user-attachments/assets/3ad80a01-b6b4-4e49-b554-60efb537508c)
 ### 6. Execute o script
 Na primeira execução, será solicitado que você se autentique na página do Google. Faça a autenticação para gerar seu token de acesso. Para mais informações, consulte [este link](https://developers.google.com/gmail/api/auth/web-server?hl=pt-br#exchange_the_authorization_code_for_an_access_token).
+![ezgif-4-f601170d14](https://github.com/user-attachments/assets/8b879a67-b9cd-4278-a96a-5f5245a60201)
 
 ```bash
 python -m main -<comando>
@@ -50,7 +51,7 @@ python -m main -<comando>
 
 ## Edite a lista dos emails a serem excluídos
 - Na pasta do projeto está presente o arquivo `EMAILS.py`, nele há duas lista, uma para os emails que deveram ser excluidos e outro para o que serão recuperados.
-- ![image](https://github.com/user-attachments/assets/3ad80a01-b6b4-4e49-b554-60efb537508c)
+
 
 # Como Excluir Emails indesejados 🧨
 - Configure os emails como citado nos passos acima
@@ -74,9 +75,9 @@ python -m main -<comando>
 - GMAIL API
 
 # Screenshots
-![image](https://github.com/user-attachments/assets/9a7934aa-2293-44c1-b66e-a24fb64e15b2)
-![image](https://github.com/user-attachments/assets/a1406233-804d-45de-9196-afc9f5a6e8ba)
-![image](https://github.com/user-attachments/assets/5df68a9a-f1d1-4612-9fbb-46a917035bce)
+ - ![image](https://github.com/user-attachments/assets/9a7934aa-2293-44c1-b66e-a24fb64e15b2)
+ - ![image](https://github.com/user-attachments/assets/a1406233-804d-45de-9196-afc9f5a6e8ba)
+ - ![image](https://github.com/user-attachments/assets/5df68a9a-f1d1-4612-9fbb-46a917035bce)
 
 
 
