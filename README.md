@@ -83,15 +83,16 @@ python -m main -<comando>
 
 ### Complexidade do algoritmo
 
-- Para exclusão de emails: O(n):
-	- Onde o tempo constante aqui é muito menor por na exclusão os emails são excluídos em um conjunto de 300 emails por requisição na API.
-	- O tempo médio de cada requisição no ambiente de teste foi `67ms`
-- Para mover emails para lixeira ao invés de excluir : O(n):
-	- Onde o tempo constante é muito maior, podemos calcular o tempo para execução usando essa formula = (medio de resposta por requisição * n) = tempo para mover todos os emails listados para a lixeira
-	- O tempo medio por request no ambiente de teste foi de `54ms`
-- Para recuperar emails da lixeira:  O(n):
-	- Similar ao mover para lixeira.
-	- Leva em media o mesmo tempo.
+Para exclusão de emails: O(n):
+O tempo constante neste caso é significativamente menor, pois os emails são excluídos em lotes de 300 emails por requisição na API. O tempo médio de cada requisição no ambiente de teste foi de 67ms.
+
+Para mover emails para a lixeira ao invés de excluir: O(n):
+O tempo constante é consideravelmente maior. Podemos calcular o tempo de execução usando a fórmula:
+(tempo médio de resposta por requisição * n) = tempo total para mover todos os emails listados para a lixeira.
+No ambiente de teste, o tempo médio por requisição foi de 54ms.
+
+Para recuperar emails da lixeira: O(n):
+Este caso é similar ao de mover emails para a lixeira, levando, em média, o mesmo tempo por requisição.
 
 # Contribuição
 	 Sinta se livre para contribuir com o codigo
