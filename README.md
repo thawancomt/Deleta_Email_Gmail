@@ -5,6 +5,7 @@ Este script permite a exclusão e recuperação automática de emails filtrados 
 # Sobre
 Este script te ajuda a manter sua caixa de entrada do Gmail limpa, voce pode definir uma lista de remetentes indesejados e o script tratara de exclui-los ou move-los para a lixeira em alguns segundos!
 Quer recuperar emails de determinados remetentes da lixeira? O script também te ajuda.
+- Busca flexivel, você pode passar tanto o email completo como por exemplo 'no-reply@t.mail.coursera.org' ou uma parte chave do email, como 'coursera'. Atenção que na busca por palavras qualquer remetente que contenha a palavra pesquisada sera retornado.
 
 ## Como instalar
 
@@ -24,6 +25,8 @@ pip install -r requirements.txt
 Siga as instruções em [Google Workspace Guides](https://developers.google.com/workspace/guides/auth-overview?hl=pt-br) para criar um projeto no Google Cloud Platform e ativar a API do Gmail. Para um guia passo a passo, consulte [este link](https://support.google.com/workspacemigrate/answer/9222992?hl=pt-br).
 [explicacao alternativa 1](https://www.fabricadecodigo.com/adicionando-autenticacao-do-google-ao-seu-web-app/)
 [explicacao alternativa 2](https://youtu.be/tgO_ADSvY1I?si=q5vKR2Gm-FNfu4Re&t=37)
+![image](https://github.com/user-attachments/assets/19bca125-b975-4933-8324-946d03881699)
+
 
 ### 3.1 Insira `https://mail.google.com/` no scope do seu projeto
 ![image](https://github.com/user-attachments/assets/338dfac8-443f-4d67-83d9-88c72261758a)
@@ -31,6 +34,7 @@ Siga as instruções em [Google Workspace Guides](https://developers.google.com/
 
 ### 4. Baixe o arquivo de credenciais
 Salve o arquivo de credenciais como `credentials.json` dentro da pasta `token files` que já está no projeto.
+![image](https://github.com/user-attachments/assets/90a0913e-2ee3-455a-9365-754c6618f1e8)
 
 ### 5. Defina os Emails a serem tratados
 No arquivo [`EMAILS.py`](EMAILS.py), adicione os emails que deseja tratar. Existem duas listas: uma para emails que serão excluídos e outra para emails que serão recuperados. Adicione os emails em forma de lista.
@@ -39,13 +43,15 @@ No arquivo [`EMAILS.py`](EMAILS.py), adicione os emails que deseja tratar. Exist
 Na primeira execução, será solicitado que você se autentique na página do Google. Faça a autenticação para gerar seu token de acesso. Para mais informações, consulte [este link](https://developers.google.com/gmail/api/auth/web-server?hl=pt-br#exchange_the_authorization_code_for_an_access_token).
 
 ```bash
-python -m main
+python -m main -<comando>
 ```
 
 # Como configurar a lista dos Emails ✉️
 
 ## Edite a lista dos emails a serem excluídos
 - Na pasta do projeto está presente o arquivo `EMAILS.py`, nele há duas lista, uma para os emails que deveram ser excluidos e outro para o que serão recuperados.
+- ![image](https://github.com/user-attachments/assets/3ad80a01-b6b4-4e49-b554-60efb537508c)
+
 # Como Excluir Emails indesejados 🧨
 - Configure os emails como citado nos passos acima
 - Rode o script passando o argumento `-excluir` :
@@ -66,6 +72,13 @@ python -m main
 # Tecnologias usadas:
 - Python v3.12
 - GMAIL API
+
+# Screenshots
+![image](https://github.com/user-attachments/assets/9a7934aa-2293-44c1-b66e-a24fb64e15b2)
+![image](https://github.com/user-attachments/assets/a1406233-804d-45de-9196-afc9f5a6e8ba)
+![image](https://github.com/user-attachments/assets/5df68a9a-f1d1-4612-9fbb-46a917035bce)
+
+
 
 ### Complexidade do algoritmo
 
